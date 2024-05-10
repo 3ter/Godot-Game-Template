@@ -10,7 +10,6 @@ process_mode = 3
 layer = 100
 script = ExtResource("2")
 options_packed_scene = ExtResource("2_na2xb")
-main_menu_scene = "res://addons/maaacks_game_template/base/scenes/Menus/MainMenu/MainMenu.tscn"
 
 [node name="UISoundController" type="Node" parent="."]
 script = ExtResource("3_hgthy")

@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 @export_file("*.tscn") var next_scene : String
+@export_group("Custom Paths")
+## Links to a custom main menu instead of the one set at runtime in project settings.
 @export_file("*.tscn") var main_menu_scene : String
 
 func _input(event):
@@ -15,8 +17,11 @@ func _setup_continue():
 	if next_scene.is_empty():
 		%ContinueButton.hide()
 
+func _get_main_menu() -> String:
+	return AppConfig.get_main_menu(main_menu_scene)
+
 func _setup_main_menu():
-	if main_menu_scene.is_empty():
+	if _get_main_menu().is_empty():
 		%MainMenuButton.hide()
 
 func _ready():
@@ -37,7 +42,7 @@ func _on_continue_button_pressed():
 	InGameMenuController.close_menu()
 
 func _on_confirm_main_menu_confirmed():
-	SceneLoader.load_scene(main_menu_scene)
+	SceneLoader.load_scene(_get_main_menu())
 	InGameMenuController.close_menu()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
