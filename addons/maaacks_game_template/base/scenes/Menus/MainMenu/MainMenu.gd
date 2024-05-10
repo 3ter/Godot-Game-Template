@@ -12,6 +12,9 @@ const NO_VERSION_NAME : String = "0.0.0"
 @export var show_version : bool = true
 ## Prefixes the value of `application/config/version` when displaying to the user.
 @export var version_prefix : String = "v"
+@export_group("Settings")
+## Sets the value of `application/run/main_menu`, to the current scene.
+@export var set_as_project_main_menu : bool = true
 
 var options_scene
 var credits_scene
@@ -84,7 +87,12 @@ func _setup_credits():
 			credits_scene.connect("end_reached", _on_credits_end_reached)
 		%CreditsContainer.call_deferred("add_child", credits_scene)
 
+func _setup_project_main_scene():
+	if set_as_project_main_menu:
+		ProjectSettings.set_setting("application/run/main_menu", scene_file_path)
+
 func _ready():
+	_setup_project_main_scene()
 	_setup_for_web()
 	_setup_version_name()
 	_setup_options()
